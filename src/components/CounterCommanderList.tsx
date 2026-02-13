@@ -62,7 +62,7 @@ export default function CounterCommanderList({ commanders, isLoading }: CounterC
             <p className="mt-3 text-sm leading-relaxed text-zinc-300">{cmd.reason}</p>
             <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">{cmd.strategy}</p>
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-xs font-semibold text-amber-500/90">{cmd.estimatedCost}</span>
+              <span className="text-xs font-semibold text-emerald-400">{cmd.estimatedCost}</span>
             </div>
           </div>
         ))}

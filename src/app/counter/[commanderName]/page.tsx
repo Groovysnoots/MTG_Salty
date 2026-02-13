@@ -98,7 +98,7 @@ export default function CounterPage({ params }: PageProps) {
   if (isLoadingCommander) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-24">
-        <div className="h-10 w-10 animate-spin rounded-full border-3 border-zinc-700 border-t-amber-500" />
+        <div className="h-10 w-10 animate-spin rounded-full border-3 border-zinc-700 border-t-emerald-500" />
         <p className="text-sm text-zinc-500">Loading commander...</p>
       </div>
     );
@@ -136,7 +136,7 @@ export default function CounterPage({ params }: PageProps) {
               <div>
                 <a
                   href="/"
-                  className="mb-3 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-amber-500"
+                  className="mb-3 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-emerald-400"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -150,8 +150,8 @@ export default function CounterPage({ params }: PageProps) {
               </div>
 
               {analysis && (
-                <div className="rounded-xl border border-amber-900/40 bg-amber-950/15 p-5">
-                  <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-amber-500">
+                <div className="rounded-xl border border-emerald-900/40 bg-emerald-950/15 p-5">
+                  <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-500">
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
                     </svg>
@@ -211,7 +211,7 @@ export default function CounterPage({ params }: PageProps) {
                   const found = counterCommanders.find((c) => c.name === e.target.value);
                   setSelectedExportCommander(found || null);
                 }}
-                className="rounded-xl border border-zinc-700/80 bg-zinc-900/80 px-4 py-2.5 text-sm text-zinc-100 outline-none transition-all focus:border-amber-500/70 focus:ring-2 focus:ring-amber-500/20"
+                className="rounded-xl border border-zinc-700/80 bg-zinc-900/80 px-4 py-2.5 text-sm text-zinc-100 outline-none transition-all focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
               >
                 {counterCommanders.map((c) => (
                   <option key={c.name} value={c.name}>

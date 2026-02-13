@@ -28,7 +28,7 @@ export default function CommanderCard({ card, size = "normal", showDetails = fal
             alt={card.name}
             width={width}
             height={height}
-            className="rounded-xl shadow-2xl shadow-black/50 ring-1 ring-zinc-700/50 transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-amber-900/20"
+            className="rounded-xl shadow-2xl shadow-black/50 ring-1 ring-zinc-700/50 transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-emerald-900/20"
             unoptimized
           />
         ) : (

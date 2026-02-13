@@ -36,7 +36,7 @@ export default function DeckExport({ commander, cards }: DeckExportProps) {
     <div className="space-y-4 rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <svg className="h-5 w-5 text-amber-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-5 w-5 text-emerald-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
           <h3 className="font-bold text-zinc-100">Export Deck List</h3>
@@ -73,7 +73,7 @@ export default function DeckExport({ commander, cards }: DeckExportProps) {
       <div className="flex gap-2">
         <button
           onClick={handleCopy}
-          className="flex items-center gap-2 rounded-xl bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-amber-500"
+          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500"
         >
           {copied ? (
             <>

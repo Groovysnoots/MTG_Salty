@@ -60,7 +60,7 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-zinc-100">Counter Cards</h2>
-        <span className="rounded-full bg-amber-500/10 px-3 py-1 text-sm font-semibold text-amber-500">
+        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-400">
           Total: ${totalPrice.toFixed(2)}
         </span>
       </div>

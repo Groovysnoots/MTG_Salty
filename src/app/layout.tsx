@@ -34,7 +34,7 @@ export default function RootLayout({
             <a href="/" className="group flex items-center gap-2.5">
               <span className="text-2xl transition-transform group-hover:rotate-12">🧂</span>
               <span className="text-xl font-bold tracking-tight text-zinc-100">
-                MTG <span className="text-amber-500">Salty</span>
+                MTG <span className="text-emerald-500">Salty</span>
               </span>
             </a>
             <p className="hidden text-sm text-zinc-500 sm:block">

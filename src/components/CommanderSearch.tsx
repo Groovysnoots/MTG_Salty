@@ -102,11 +102,11 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
           onKeyDown={handleKeyDown}
           onFocus={() => results.length > 0 && setIsOpen(true)}
           placeholder="Search for a commander..."
-          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-900/80 pl-12 pr-4 py-3.5 text-lg text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-amber-500/70 focus:ring-2 focus:ring-amber-500/20 focus:bg-zinc-900"
+          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-900/80 pl-12 pr-4 py-3.5 text-lg text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20 focus:bg-zinc-900"
         />
         {isLoading && (
           <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-amber-500" />
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-emerald-500" />
           </div>
         )}
       </div>
@@ -120,7 +120,7 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
                 key={card.id}
                 className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 transition-colors ${
                   index === highlightIndex
-                    ? "bg-amber-500/10 border-l-2 border-l-amber-500"
+                    ? "bg-emerald-500/10 border-l-2 border-l-emerald-500"
                     : "hover:bg-zinc-800/60 border-l-2 border-l-transparent"
                 }`}
                 onMouseEnter={() => setHighlightIndex(index)}

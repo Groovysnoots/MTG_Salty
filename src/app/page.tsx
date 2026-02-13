@@ -17,7 +17,7 @@ export default function Home() {
       <div className="space-y-5 text-center animate-fade-in-up">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
           Who&apos;s giving you{" "}
-          <span className="text-amber-500">trouble</span>?
+          <span className="text-emerald-500">trouble</span>?
         </h1>
         <p className="mx-auto max-w-md text-base sm:text-lg leading-relaxed text-zinc-400">
           Search for the commander dominating your playgroup.
