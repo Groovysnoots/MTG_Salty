@@ -72,18 +72,8 @@ export default function CounterCommanderList({ commanders, isLoading }: CounterC
 }
 
 function ManaIcon({ color }: { color: string }) {
-  const colorMap: Record<string, string> = {
-    W: "bg-amber-100 text-amber-900",
-    U: "bg-blue-400 text-blue-950",
-    B: "bg-zinc-600 text-zinc-100",
-    R: "bg-red-500 text-red-100",
-    G: "bg-green-600 text-green-100",
-    C: "bg-zinc-400 text-zinc-800",
-  };
-
+  const manaClass = color ? color.toLowerCase() : "c";
   return (
-    <span className={`mana-symbol ${colorMap[color] || colorMap.C}`}>
-      {color}
-    </span>
+    <i className={`ms ms-${manaClass} ms-cost ms-shadow`} title={color} />
   );
 }

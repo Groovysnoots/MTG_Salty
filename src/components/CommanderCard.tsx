@@ -73,19 +73,8 @@ export default function CommanderCard({ card, size = "normal", showDetails = fal
 }
 
 function ColorBadge({ color }: { color: string }) {
-  const colorMap: Record<string, { bg: string; label: string }> = {
-    W: { bg: "bg-amber-100 text-amber-900", label: "White" },
-    U: { bg: "bg-blue-400 text-blue-950", label: "Blue" },
-    B: { bg: "bg-zinc-600 text-zinc-100", label: "Black" },
-    R: { bg: "bg-red-500 text-red-100", label: "Red" },
-    G: { bg: "bg-green-600 text-green-100", label: "Green" },
-    C: { bg: "bg-zinc-400 text-zinc-800", label: "Colorless" },
-  };
-
-  const { bg, label } = colorMap[color] || colorMap.C;
+  const manaClass = color ? color.toLowerCase() : "c";
   return (
-    <span className={`mana-symbol ${bg}`}>
-      {color}
-    </span>
+    <i className={`ms ms-${manaClass} ms-cost ms-shadow`} title={color} />
   );
 }
