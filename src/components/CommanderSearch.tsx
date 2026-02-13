@@ -80,8 +80,21 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-xl">
+    <div ref={containerRef} className="relative mx-auto w-full max-w-xl">
       <div className="relative">
+        <svg
+          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
         <input
           type="text"
           value={query}
@@ -89,24 +102,26 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
           onKeyDown={handleKeyDown}
           onFocus={() => results.length > 0 && setIsOpen(true)}
           placeholder="Search for a commander..."
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-lg text-zinc-100 placeholder-zinc-500 outline-none transition-colors focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-900/80 pl-12 pr-4 py-3.5 text-lg text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-amber-500/70 focus:ring-2 focus:ring-amber-500/20 focus:bg-zinc-900"
         />
         {isLoading && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-amber-500" />
           </div>
         )}
       </div>
 
       {isOpen && results.length > 0 && (
-        <ul className="absolute z-50 mt-1 max-h-96 w-full overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-900 shadow-xl">
+        <ul className="absolute z-50 mt-2 max-h-[420px] w-full overflow-y-auto rounded-xl border border-zinc-700/80 bg-zinc-900/95 backdrop-blur-sm shadow-2xl shadow-black/40">
           {results.slice(0, 20).map((card, index) => {
             const imageUrl = getCardImageUrl(card, "small");
             return (
               <li
                 key={card.id}
-                className={`flex cursor-pointer items-center gap-3 px-3 py-2 transition-colors ${
-                  index === highlightIndex ? "bg-zinc-800" : "hover:bg-zinc-800/60"
+                className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 transition-colors ${
+                  index === highlightIndex
+                    ? "bg-amber-500/10 border-l-2 border-l-amber-500"
+                    : "hover:bg-zinc-800/60 border-l-2 border-l-transparent"
                 }`}
                 onMouseEnter={() => setHighlightIndex(index)}
                 onClick={() => handleSelect(card)}
@@ -117,13 +132,13 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
                     alt={card.name}
                     width={36}
                     height={50}
-                    className="rounded-sm"
+                    className="rounded-sm shadow-sm"
                     unoptimized
                   />
                 )}
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-medium text-zinc-100">{card.name}</p>
-                  <p className="truncate text-sm text-zinc-400">{card.type_line}</p>
+                  <p className="truncate text-sm text-zinc-500">{card.type_line}</p>
                 </div>
                 <div className="flex gap-0.5">
                   {card.color_identity.map((c) => (
@@ -138,8 +153,8 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
       )}
 
       {isOpen && !isLoading && results.length === 0 && query.length >= 2 && (
-        <div className="absolute z-50 mt-1 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-zinc-400 shadow-xl">
-          No commanders found.
+        <div className="absolute z-50 mt-2 w-full rounded-xl border border-zinc-700/80 bg-zinc-900/95 px-4 py-4 text-center text-zinc-500 shadow-2xl">
+          No commanders found for &ldquo;{query}&rdquo;
         </div>
       )}
     </div>
@@ -150,16 +165,14 @@ function ManaIcon({ color }: { color: string }) {
   const colorMap: Record<string, string> = {
     W: "bg-amber-100 text-amber-900",
     U: "bg-blue-400 text-blue-950",
-    B: "bg-zinc-700 text-zinc-100",
+    B: "bg-zinc-600 text-zinc-100",
     R: "bg-red-500 text-red-100",
-    G: "bg-green-500 text-green-950",
+    G: "bg-green-600 text-green-100",
     C: "bg-zinc-400 text-zinc-800",
   };
 
   return (
-    <span
-      className={`inline-flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold ${colorMap[color] || colorMap.C}`}
-    >
+    <span className={`mana-symbol ${colorMap[color] || colorMap.C}`}>
       {color}
     </span>
   );

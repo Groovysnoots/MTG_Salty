@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
+  --background: #09090b;
   --foreground: #ededed;
 }
 
@@ -18,41 +18,112 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Subtle background glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 0%, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
 /* Custom slider styles */
+.hate-slider {
+  background: linear-gradient(to right, #22c55e, #eab308, #f97316, #ef4444, #991b1b);
+  border-radius: 9999px;
+}
+
 .hate-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #d97706;
+  background: #fff;
   cursor: pointer;
-  border: 2px solid #fbbf24;
-  box-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+  border: 3px solid #d97706;
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.2s, transform 0.1s;
+}
+
+.hate-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(217, 119, 6, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .hate-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  border: 3px solid #d97706;
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card hover glow */
+.card-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 20px rgba(217, 119, 6, 0.12), 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(217, 119, 6, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Section dividers */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(113, 113, 122, 0.3), transparent);
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.4s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.4s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+/* Mana symbol */
+.mana-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #d97706;
-  cursor: pointer;
-  border: 2px solid #fbbf24;
-  box-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Scrollbar styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #18181b;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #3f3f46;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

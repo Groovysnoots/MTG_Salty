@@ -97,19 +97,25 @@ export default function CounterPage({ params }: PageProps) {
 
   if (isLoadingCommander) {
     return (
-      <div className="flex items-center justify-center py-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-600 border-t-amber-500" />
+      <div className="flex flex-col items-center justify-center gap-4 py-24">
+        <div className="h-10 w-10 animate-spin rounded-full border-3 border-zinc-700 border-t-amber-500" />
+        <p className="text-sm text-zinc-500">Loading commander...</p>
       </div>
     );
   }
 
   if (error && !commander) {
     return (
-      <div className="flex flex-col items-center gap-4 py-24">
+      <div className="flex flex-col items-center gap-5 py-24 animate-fade-in-up">
+        <div className="rounded-full bg-red-950/30 p-4">
+          <svg className="h-8 w-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+        </div>
         <p className="text-lg text-red-400">{error}</p>
         <a
           href="/"
-          className="rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-700"
+          className="rounded-xl bg-zinc-800/80 px-5 py-2.5 text-sm font-medium text-zinc-300 transition-all hover:bg-zinc-700 hover:text-zinc-100"
         >
           Back to Search
         </a>
@@ -118,25 +124,43 @@ export default function CounterPage({ params }: PageProps) {
   }
 
   return (
-    <div className="space-y-10 pb-16">
+    <div className="space-y-12 pb-20 animate-fade-in-up">
       {/* Target Commander */}
-      <section className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+      <section className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
         {commander && (
           <>
-            <CommanderCard card={commander} size="normal" />
-            <div className="flex-1 space-y-4">
+            <div className="shrink-0">
+              <CommanderCard card={commander} size="normal" />
+            </div>
+            <div className="flex-1 space-y-5">
               <div>
-                <h1 className="text-3xl font-bold text-zinc-100">{commander.name}</h1>
-                <p className="text-zinc-400">{commander.type_line}</p>
+                <a
+                  href="/"
+                  className="mb-3 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-amber-500"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Back to Search
+                </a>
+                <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+                  {commander.name}
+                </h1>
+                <p className="mt-1 text-zinc-400">{commander.type_line}</p>
               </div>
+
               {analysis && (
-                <div className="rounded-lg border border-amber-900/50 bg-amber-950/20 p-4">
-                  <h2 className="mb-1 text-sm font-semibold uppercase tracking-wider text-amber-500">
+                <div className="rounded-xl border border-amber-900/40 bg-amber-950/15 p-5">
+                  <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-amber-500">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
                     Threat Analysis
                   </h2>
                   <p className="text-sm leading-relaxed text-zinc-300">{analysis}</p>
                 </div>
               )}
+
               <HateSlider value={hateLevel} onChange={setHateLevel} />
             </div>
           </>
@@ -144,11 +168,14 @@ export default function CounterPage({ params }: PageProps) {
       </section>
 
       {error && (
-        <div className="rounded-lg border border-red-900/50 bg-red-950/20 p-4 text-sm text-red-400">
-          {error}
+        <div className="flex items-center gap-3 rounded-xl border border-red-900/40 bg-red-950/15 p-4 text-sm text-red-400">
+          <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          <span className="flex-1">{error}</span>
           <button
             onClick={fetchCounters}
-            className="ml-2 text-red-300 underline hover:text-red-200"
+            className="shrink-0 rounded-lg bg-red-900/30 px-3 py-1.5 text-sm font-medium text-red-300 transition-colors hover:bg-red-900/50"
           >
             Retry
           </button>
@@ -160,24 +187,31 @@ export default function CounterPage({ params }: PageProps) {
         <CounterCommanderList commanders={counterCommanders} isLoading={isLoading} />
       </section>
 
+      {/* Section Divider */}
+      {(counterCommanders.length > 0 || isLoading) && <div className="section-divider" />}
+
       {/* Counter Cards */}
       <section>
         <CounterCardList cards={counterCards} isLoading={isLoading} />
       </section>
 
+      {/* Section Divider */}
+      {(counterCards.length > 0 || isLoading) && <div className="section-divider" />}
+
       {/* Deck Export */}
       {(counterCommanders.length > 0 || counterCards.length > 0) && (
-        <section>
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-zinc-100">Export Results</h2>
           {counterCommanders.length > 1 && (
-            <div className="mb-3">
-              <label className="mb-1 block text-sm text-zinc-400">Export with commander:</label>
+            <div>
+              <label className="mb-1.5 block text-sm text-zinc-400">Export with commander:</label>
               <select
                 value={selectedExportCommander?.name || ""}
                 onChange={(e) => {
                   const found = counterCommanders.find((c) => c.name === e.target.value);
                   setSelectedExportCommander(found || null);
                 }}
-                className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100"
+                className="rounded-xl border border-zinc-700/80 bg-zinc-900/80 px-4 py-2.5 text-sm text-zinc-100 outline-none transition-all focus:border-amber-500/70 focus:ring-2 focus:ring-amber-500/20"
               >
                 {counterCommanders.map((c) => (
                   <option key={c.name} value={c.name}>
@@ -191,11 +225,14 @@ export default function CounterPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* Section Divider */}
+      {(counterCommanders.length > 0 || counterCards.length > 0) && <div className="section-divider" />}
+
       {/* Deck Import Section */}
       <section className="space-y-4">
         <h2 className="text-xl font-bold text-zinc-100">Have an Existing Deck?</h2>
-        <p className="text-sm text-zinc-400">
-          Import your Moxfield deck to get personalized suggestions on what to add or cut.
+        <p className="max-w-lg text-sm leading-relaxed text-zinc-400">
+          Import your Moxfield deck or paste a deck list to get personalized suggestions on what to add or cut.
         </p>
         <DeckImport onImport={setImportedDeck} />
       </section>

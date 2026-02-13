@@ -11,20 +11,12 @@ interface HateSliderProps {
 export default function HateSlider({ value, onChange }: HateSliderProps) {
   const { name, description } = HATE_LEVEL_LABELS[value];
 
-  const trackColors: Record<HateLevel, string> = {
-    1: "from-green-500 to-green-600",
-    2: "from-yellow-500 to-yellow-600",
-    3: "from-orange-500 to-orange-600",
-    4: "from-red-500 to-red-600",
-    5: "from-red-700 to-red-900",
-  };
-
-  const glowColors: Record<HateLevel, string> = {
-    1: "shadow-green-500/30",
-    2: "shadow-yellow-500/30",
-    3: "shadow-orange-500/30",
-    4: "shadow-red-500/30",
-    5: "shadow-red-700/50",
+  const badgeColors: Record<HateLevel, string> = {
+    1: "bg-green-500/15 text-green-400 ring-green-500/20",
+    2: "bg-yellow-500/15 text-yellow-400 ring-yellow-500/20",
+    3: "bg-orange-500/15 text-orange-400 ring-orange-500/20",
+    4: "bg-red-500/15 text-red-400 ring-red-500/20",
+    5: "bg-red-900/25 text-red-300 ring-red-700/30",
   };
 
   return (
@@ -32,13 +24,13 @@ export default function HateSlider({ value, onChange }: HateSliderProps) {
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-zinc-300">Salt Level</label>
         <span
-          className={`rounded-full bg-gradient-to-r ${trackColors[value]} px-3 py-1 text-sm font-bold text-white shadow-lg ${glowColors[value]}`}
+          className={`rounded-full px-3 py-1 text-sm font-bold ring-1 ${badgeColors[value]}`}
         >
           {name}
         </span>
       </div>
 
-      <div className="relative">
+      <div className="relative pt-1">
         <input
           type="range"
           min={1}
@@ -46,18 +38,26 @@ export default function HateSlider({ value, onChange }: HateSliderProps) {
           step={1}
           value={value}
           onChange={(e) => onChange(parseInt(e.target.value) as HateLevel)}
-          className="hate-slider w-full cursor-pointer appearance-none rounded-full bg-zinc-800 h-2"
+          className="hate-slider w-full cursor-pointer appearance-none rounded-full h-2"
         />
-        <div className="mt-1 flex justify-between px-1 text-xs text-zinc-600">
+        <div className="mt-2 flex justify-between px-0.5">
           {([1, 2, 3, 4, 5] as const).map((level) => (
-            <span key={level} className={value === level ? "text-zinc-300 font-medium" : ""}>
+            <button
+              key={level}
+              onClick={() => onChange(level)}
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-xs transition-all ${
+                value === level
+                  ? "bg-zinc-700 text-zinc-100 font-bold scale-110"
+                  : "text-zinc-600 hover:text-zinc-400"
+              }`}
+            >
               {level}
-            </span>
+            </button>
           ))}
         </div>
       </div>
 
-      <p className="text-sm text-zinc-400">{description}</p>
+      <p className="text-sm leading-relaxed text-zinc-500">{description}</p>
     </div>
   );
 }

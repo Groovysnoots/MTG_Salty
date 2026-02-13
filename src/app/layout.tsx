@@ -28,11 +28,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-zinc-950 antialiased`}
       >
-        <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-40">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-            <a href="/" className="flex items-center gap-2">
-              <span className="text-2xl">🧂</span>
-              <span className="text-xl font-bold text-zinc-100">
+        <header className="border-b border-zinc-800/60 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-40">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-4">
+            <a href="/" className="group flex items-center gap-2.5">
+              <span className="text-2xl transition-transform group-hover:rotate-12">🧂</span>
+              <span className="text-xl font-bold tracking-tight text-zinc-100">
                 MTG <span className="text-amber-500">Salty</span>
               </span>
             </a>
@@ -41,7 +41,17 @@ export default function RootLayout({
             </p>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+        <main className="mx-auto max-w-6xl px-4 sm:px-6 py-8">{children}</main>
+        <footer className="border-t border-zinc-800/40 py-6 mt-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between">
+            <p className="text-xs text-zinc-600">
+              Card data from Scryfall. Not affiliated with Wizards of the Coast.
+            </p>
+            <p className="text-xs text-zinc-700">
+              MTG Salty
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );
