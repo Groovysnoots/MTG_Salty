@@ -99,7 +99,7 @@ export default function CounterPage({ params }: PageProps) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-24">
         <div className="h-10 w-10 animate-spin rounded-full border-3 border-zinc-700 border-t-emerald-500" />
-        <p className="text-sm text-zinc-500">Loading commander...</p>
+        <p className="text-sm text-zinc-500 font-label">Loading commander...</p>
       </div>
     );
   }
@@ -151,7 +151,7 @@ export default function CounterPage({ params }: PageProps) {
 
               {analysis && (
                 <div className="rounded-xl border border-emerald-900/40 bg-emerald-950/15 p-5">
-                  <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-500">
+                  <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-500 font-label">
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
                     </svg>
@@ -204,7 +204,7 @@ export default function CounterPage({ params }: PageProps) {
           <h2 className="text-xl font-bold text-zinc-100">Export Results</h2>
           {counterCommanders.length > 1 && (
             <div>
-              <label className="mb-1.5 block text-sm text-zinc-400">Export with commander:</label>
+              <label className="mb-1.5 block text-sm text-zinc-400 font-label">Export with commander:</label>
               <select
                 value={selectedExportCommander?.name || ""}
                 onChange={(e) => {

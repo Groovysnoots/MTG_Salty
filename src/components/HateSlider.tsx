@@ -22,9 +22,9 @@ export default function HateSlider({ value, onChange }: HateSliderProps) {
   return (
     <div className="w-full max-w-md space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-zinc-300">Salt Level</label>
+        <label className="text-sm font-medium text-zinc-300 font-label">Salt Level</label>
         <span
-          className={`rounded-full px-3 py-1 text-sm font-bold ring-1 ${badgeColors[value]}`}
+          className={`rounded-full px-3 py-1 text-sm font-bold ring-1 font-label ${badgeColors[value]}`}
         >
           {name}
         </span>

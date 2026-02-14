@@ -41,7 +41,7 @@ export default function DeckExport({ commander, cards }: DeckExportProps) {
           </svg>
           <h3 className="font-bold text-zinc-100">Export Deck List</h3>
         </div>
-        <span className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
+        <span className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400 font-label">
           {cards.length + (commander ? 1 : 0)} cards
         </span>
       </div>

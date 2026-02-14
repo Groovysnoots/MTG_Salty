@@ -60,14 +60,14 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-zinc-100">Counter Cards</h2>
-        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-400">
+        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-400 font-label">
           Total: ${totalPrice.toFixed(2)}
         </span>
       </div>
 
       {Object.entries(grouped).map(([category, categoryCards]) => (
         <div key={category} className="space-y-2">
-          <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-500">
+          <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 font-label">
             <span className="h-px flex-1 bg-zinc-800" />
             {CARD_CATEGORY_LABELS[category as CardCategory] || category} ({categoryCards.length})
             <span className="h-px flex-1 bg-zinc-800" />
@@ -96,7 +96,7 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-zinc-100">{counterCard.name}</span>
                       {price !== null && (
-                        <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400">
+                        <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400 font-label">
                           ${price.toFixed(2)}
                         </span>
                       )}

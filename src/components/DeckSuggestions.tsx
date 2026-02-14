@@ -65,7 +65,7 @@ export default function DeckSuggestions({ deck, targetCommander, hateLevel }: De
               Your commander: <span className="font-medium text-emerald-400">{deck.commander.name}</span>
             </p>
           )}
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 font-label">
             {deck.mainboard.length} cards in mainboard
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function DeckSuggestions({ deck, targetCommander, hateLevel }: De
 
           {suggestions.cardsToAdd.length > 0 && (
             <div className="space-y-2">
-              <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-green-500">
+              <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-green-500 font-label">
                 <span className="h-px flex-1 bg-green-900/40" />
                 Cards to Add ({suggestions.cardsToAdd.length})
                 <span className="h-px flex-1 bg-green-900/40" />
@@ -132,7 +132,7 @@ export default function DeckSuggestions({ deck, targetCommander, hateLevel }: De
 
           {suggestions.cardsToRemove.length > 0 && (
             <div className="space-y-2">
-              <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-red-500">
+              <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-red-500 font-label">
                 <span className="h-px flex-1 bg-red-900/40" />
                 Cards to Remove ({suggestions.cardsToRemove.length})
                 <span className="h-px flex-1 bg-red-900/40" />

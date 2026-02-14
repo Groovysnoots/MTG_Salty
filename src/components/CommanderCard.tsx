@@ -54,11 +54,11 @@ export default function CommanderCard({ card, size = "normal", showDetails = fal
             {card.color_identity.length === 0 && <ColorBadge color="C" />}
           </div>
           {card.mana_cost && (
-            <p className="text-sm text-zinc-500">
-              Mana Cost: <span className="font-mono text-zinc-400">{card.mana_cost}</span>
+            <p className="text-sm text-zinc-500 font-label">
+              Mana Cost: <span className="text-zinc-400">{card.mana_cost}</span>
             </p>
           )}
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-500 font-label">
             Color Identity: {formatColorIdentity(card.color_identity)}
           </p>
           {getCardOracleText(card) && (
