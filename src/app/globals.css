@@ -21,6 +21,8 @@ body {
 /* Meta / label font */
 .font-label {
   font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Subtle background glow */

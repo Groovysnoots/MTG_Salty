@@ -67,7 +67,7 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
 
       {Object.entries(grouped).map(([category, categoryCards]) => (
         <div key={category} className="space-y-2">
-          <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 font-label">
+          <h3 className="flex items-center gap-2 text-xs font-semibold text-zinc-500 font-label">
             <span className="h-px flex-1 bg-zinc-800" />
             {CARD_CATEGORY_LABELS[category as CardCategory] || category} ({categoryCards.length})
             <span className="h-px flex-1 bg-zinc-800" />
