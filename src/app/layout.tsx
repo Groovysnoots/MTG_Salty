@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MTG Salty — Counter Any Commander",
+  title: "Flusteredstorm — Counter Any Commander",
   description:
     "Find the best commanders and cards to counter any Magic: The Gathering commander that's dominating your playgroup.",
 };
@@ -27,7 +27,7 @@ export default function RootLayout({
         <header className="border-b border-zinc-800/60 bg-[#010101] sticky top-0 z-40">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-5">
             <a href="/" className="font-bold text-sm tracking-tight text-[#f7f8f8]">
-              MTGSalty
+              Flusteredstorm
             </a>
             <span className="font-label text-xs tracking-[0.6px] uppercase text-zinc-500">
               Counter any commander.
@@ -41,7 +41,7 @@ export default function RootLayout({
               Card data from Scryfall. Not affiliated with Wizards of the Coast.
             </p>
             <p className="text-xs text-zinc-700 font-label">
-              MTG Salty
+              Flusteredstorm
             </p>
           </div>
         </footer>
