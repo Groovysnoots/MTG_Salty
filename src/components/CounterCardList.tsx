@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 import type { CounterCard, CardCategory } from "@/lib/types";
 import { CARD_CATEGORY_LABELS } from "@/lib/types";
 import { getCardPrice } from "@/lib/scryfall";
@@ -12,12 +13,9 @@ interface CounterCardListProps {
 }
 
 export default function CounterCardList({ cards, isLoading }: CounterCardListProps) {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-zinc-100">Counter Cards</h2>
         <div className="space-y-2">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="animate-pulse rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-3.5">
@@ -36,6 +34,12 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
   }
 
   if (cards.length === 0) return null;
+
+  return <StaggeredCardList cards={cards} />;
+}
+
+function StaggeredCardList({ cards }: { cards: CounterCard[] }) {
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Group by category
   const grouped = cards.reduce(
@@ -56,20 +60,36 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
     return sum;
   }, 0);
 
+  useEffect(() => {
+    if (!listRef.current) return;
+    const items = listRef.current.querySelectorAll("[data-card-row]");
+    gsap.fromTo(
+      items,
+      { opacity: 0, x: -16, scale: 0.98 },
+      {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.4,
+        stagger: 0.06,
+        ease: "power3.out",
+      }
+    );
+  }, [cards]);
+
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-zinc-100">Counter Cards</h2>
-        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-400 font-label">
+    <div ref={listRef} className="space-y-5">
+      <div className="flex items-center justify-end">
+        <span className="rounded-full bg-zinc-800 px-3 py-1 text-sm font-semibold text-[#F4F4F5] font-label">
           Total: ${totalPrice.toFixed(2)}
         </span>
       </div>
 
       {Object.entries(grouped).map(([category, categoryCards]) => (
         <div key={category} className="space-y-2">
-          <h3 className="flex items-center gap-2 text-xs font-semibold text-zinc-500 font-label">
+          <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 font-label">
             <span className="h-px flex-1 bg-zinc-800" />
-            {CARD_CATEGORY_LABELS[category as CardCategory] || category} ({categoryCards.length})
+            {CARD_CATEGORY_LABELS[category as CardCategory] || category}
             <span className="h-px flex-1 bg-zinc-800" />
           </h3>
           <div className="space-y-1.5">
@@ -78,9 +98,8 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
               return (
                 <div
                   key={counterCard.name}
-                  className="relative flex items-center gap-3 rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-3 transition-all hover:border-zinc-700/80 hover:bg-zinc-900/70"
-                  onMouseEnter={() => setHoveredCard(counterCard.name)}
-                  onMouseLeave={() => setHoveredCard(null)}
+                  data-card-row
+                  className="flex items-center gap-3 rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-3 opacity-0 transition-all hover:border-zinc-700/80 hover:bg-zinc-900/70"
                 >
                   {counterCard.imageUrl && (
                     <Image
@@ -96,26 +115,13 @@ export default function CounterCardList({ cards, isLoading }: CounterCardListPro
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-zinc-100">{counterCard.name}</span>
                       {price !== null && (
-                        <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400 font-label">
+                        <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-[#F4F4F5] font-label">
                           ${price.toFixed(2)}
                         </span>
                       )}
                     </div>
                     <p className="mt-0.5 text-sm leading-relaxed text-zinc-400">{counterCard.reason}</p>
                   </div>
-
-                  {hoveredCard === counterCard.name && counterCard.imageUrl && (
-                    <div className="pointer-events-none absolute -top-4 left-full z-50 ml-4 hidden lg:block">
-                      <Image
-                        src={counterCard.imageUrl}
-                        alt={counterCard.name}
-                        width={244}
-                        height={340}
-                        className="rounded-xl shadow-2xl shadow-black/60 ring-1 ring-zinc-700"
-                        unoptimized
-                      />
-                    </div>
-                  )}
                 </div>
               );
             })}

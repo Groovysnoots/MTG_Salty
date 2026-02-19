@@ -43,7 +43,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
   return (
     <div className="space-y-4 rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-5">
       <div className="flex items-center gap-3">
-        <svg className="h-5 w-5 text-emerald-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="h-5 w-5 text-[#0B25FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
         </svg>
         <h3 className="font-bold text-zinc-100">Import Your Deck</h3>
@@ -57,7 +57,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
           onClick={() => setMode("url")}
           className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
             mode === "url"
-              ? "bg-emerald-600 text-white shadow-sm"
+              ? "bg-[#0B25FF] text-white shadow-sm"
               : "text-zinc-400 hover:text-zinc-200"
           }`}
         >
@@ -67,7 +67,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
           onClick={() => setMode("text")}
           className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
             mode === "text"
-              ? "bg-emerald-600 text-white shadow-sm"
+              ? "bg-[#0B25FF] text-white shadow-sm"
               : "text-zinc-400 hover:text-zinc-200"
           }`}
         >
@@ -81,7 +81,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://moxfield.com/decks/..."
-          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
+          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-[#0B25FF]/60 focus:ring-2 focus:ring-[#0B25FF]/20"
         />
       ) : (
         <textarea
@@ -89,7 +89,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
           onChange={(e) => setText(e.target.value)}
           placeholder={`Commander\n1 Atraxa, Praetors' Voice\n\nDeck\n1 Sol Ring\n1 Arcane Signet\n...`}
           rows={8}
-          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 font-mono text-sm text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
+          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 font-mono text-sm text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-[#0B25FF]/60 focus:ring-2 focus:ring-[#0B25FF]/20"
         />
       )}
 
@@ -105,7 +105,7 @@ export default function DeckImport({ onImport }: DeckImportProps) {
       <button
         onClick={handleImport}
         disabled={isLoading || (mode === "url" ? !url.trim() : !text.trim())}
-        className="w-full rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+        className="w-full rounded-xl bg-[#0B25FF] px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#0B25FF]/80 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
       >
         {isLoading ? (
           <span className="flex items-center justify-center gap-2">

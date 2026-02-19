@@ -1,72 +1,212 @@
 @import "tailwindcss";
 
 :root {
-  --background: #070707;
-  --foreground: #EAEAEA;
+  --background: #010101;
+  --foreground: #E4E4E7;
+  --accent-blue: #0B25FF;
+  --accent-orange: #FF4200;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Futura", "Futura-Medium", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: "Futura", "Futura-Medium", ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Futura", "Futura-Bold", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Hero display font */
+.font-hero {
+  font-family: "Futura", "Futura-CondensedExtraBold", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  font-stretch: condensed;
 }
 
 /* Meta / label font */
 .font-label {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: "Futura", "Futura-Medium", ui-sans-serif, system-ui, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* Subtle background glow */
-body::before {
+/* Feature text font */
+.font-feature {
+  font-family: "Futura", "Futura-Medium", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* ============================================
+   LIQUID GLASS — Specular Drift Animation
+   ============================================ */
+@keyframes liquid-specular-drift {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translateX(-40%) skewX(-18deg);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateX(40%) skewX(-18deg);
+  }
+}
+
+/* ============================================
+   LIQUID GLASS — Search Bar
+   ============================================ */
+.glass-search {
+  position: relative;
+  border-radius: 41px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Layer 1: Backdrop blur + SVG displacement refraction */
+.glass-search::before {
   content: "";
-  position: fixed;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: 41px;
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  background: rgba(153, 153, 153, 0.18);
+  mix-blend-mode: darken;
+}
+
+/* SVG displacement filter — Chromium enhancement */
+.glass-search[data-liquid-glass="true"]::before {
+  filter: url(#liquid-glass-distortion);
+}
+
+/* Layer 2: Specular highlight band (animated) */
+.glass-search::after {
+  content: "";
+  position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  border-radius: 41px;
   pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.2) 60%,
+    transparent 85%
+  );
+  background-size: 250% 100%;
+  animation: liquid-specular-drift 8s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+
+/* Layer 3: Inner glass with neumorphic depth + edge glow */
+.glass-search-inner {
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(8.5px) saturate(1.4);
+  -webkit-backdrop-filter: blur(8.5px) saturate(1.4);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 41px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 2.7px 2.7px 0px -1.35px rgba(51, 51, 51, 0.8),
+    inset -2.7px -2.7px 0px -1.35px rgba(38, 38, 38, 0.8),
+    inset 2.7px 2.7px 1.35px -2.7px rgba(255, 255, 255, 0.6),
+    inset -2.7px -2.7px 1.35px -2.7px rgba(255, 255, 255, 0.4),
+    inset 0px 0px 8px 0px rgba(255, 255, 255, 0.25),
+    inset 0px 0px 32px 0px rgba(242, 242, 242, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Focus state — blue edge glow matching accent */
+.glass-search:focus-within .glass-search-inner {
+  border-color: rgba(11, 37, 255, 0.3);
+  box-shadow:
+    inset 2.7px 2.7px 0px -1.35px rgba(51, 51, 51, 0.8),
+    inset -2.7px -2.7px 0px -1.35px rgba(38, 38, 38, 0.8),
+    inset 2.7px 2.7px 1.35px -2.7px rgba(255, 255, 255, 0.6),
+    inset -2.7px -2.7px 1.35px -2.7px rgba(255, 255, 255, 0.4),
+    inset 0px 0px 8px 0px rgba(255, 255, 255, 0.25),
+    inset 0px 0px 32px 0px rgba(242, 242, 242, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(11, 37, 255, 0.2),
+    0 0 40px rgba(11, 37, 255, 0.08);
+}
+
+/* Focus state — enhanced specular */
+.glass-search:focus-within::after {
+  background: linear-gradient(
+    105deg,
+    transparent 10%,
+    rgba(11, 37, 255, 0.15) 35%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(11, 37, 255, 0.15) 65%,
+    transparent 90%
+  );
+  background-size: 250% 100%;
+  opacity: 0.35;
+}
+
+/* Fallback for no backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-search::before {
+    background: rgba(30, 30, 30, 0.9);
+    filter: none;
+    mix-blend-mode: normal;
+  }
+  .glass-search::after {
+    display: none;
+  }
+  .glass-search-inner {
+    background: rgba(40, 40, 40, 0.95);
+  }
+}
+
+body::before {
+  content: none;
 }
 
 /* Custom slider styles */
-.hate-slider {
-  background: linear-gradient(to right, #22c55e, #eab308, #f97316, #ef4444, #991b1b);
+.salt-slider {
+  background: #3f3f46;
   border-radius: 9999px;
 }
 
-.hate-slider::-webkit-slider-thumb {
+.salt-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: #fff;
+  background: #FF4200;
   cursor: pointer;
-  border: 3px solid #059669;
-  box-shadow: 0 0 12px rgba(5, 150, 105, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  box-shadow: 0 2px 8px rgba(255, 66, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.2s, transform 0.1s;
 }
 
-.hate-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 16px rgba(5, 150, 105, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
+.salt-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 12px rgba(255, 66, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-.hate-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+.salt-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: #fff;
+  background: #FF4200;
   cursor: pointer;
-  border: 3px solid #059669;
-  box-shadow: 0 0 12px rgba(5, 150, 105, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  box-shadow: 0 2px 8px rgba(255, 66, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Card hover glow */

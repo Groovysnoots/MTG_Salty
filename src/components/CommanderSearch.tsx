@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import type { ScryfallCard } from "@/lib/types";
 import { getCardImageUrl } from "@/lib/scryfall";
 import Image from "next/image";
+import LiquidGlassFilter from "./LiquidGlassFilter";
 
 interface CommanderSearchProps {
   onSelect: (card: ScryfallCard) => void;
@@ -17,6 +18,13 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [liquidGlass, setLiquidGlass] = useState(false);
+
+  useEffect(() => {
+    // SVG filter in CSS filter property works reliably in Chromium
+    const isChromium = "chrome" in window || /Chrome/.test(navigator.userAgent);
+    setLiquidGlass(isChromium);
+  }, []);
 
   const search = useCallback(async (q: string) => {
     if (q.length < 2) {
@@ -80,39 +88,49 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative mx-auto w-full max-w-xl">
-      <div className="relative">
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    <div ref={containerRef} className="relative mx-auto w-full">
+      <LiquidGlassFilter />
+      {/* Liquid glass search container */}
+      <div className="glass-search" data-liquid-glass={liquidGlass || undefined}>
+        <div className="glass-search-inner flex items-center h-[67px] px-3">
+          {/* Input */}
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => handleInputChange(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onFocus={() => results.length > 0 && setIsOpen(true)}
+            placeholder="Search for a commander..."
+            className="flex-1 bg-transparent px-4 py-3 text-base font-feature text-[#e4e4e7] placeholder-[#e4e4e7]/60 outline-none"
           />
-        </svg>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => handleInputChange(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onFocus={() => results.length > 0 && setIsOpen(true)}
-          placeholder="Search for a commander..."
-          className="w-full rounded-xl border border-zinc-700/80 bg-zinc-900/80 pl-12 pr-4 py-3.5 text-lg text-zinc-100 placeholder-zinc-500 outline-none transition-all focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20 focus:bg-zinc-900"
-        />
-        {isLoading && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-emerald-500" />
-          </div>
-        )}
+          {isLoading && (
+            <div className="shrink-0 mr-2">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-[#FF4200]" />
+            </div>
+          )}
+          {/* Search icon button (orange) */}
+          <button
+            type="button"
+            className="flex items-center justify-center shrink-0 size-[44px] rounded-[13px] bg-[#FF4200] transition-all hover:bg-[#ff5722] active:scale-95"
+            onClick={() => {
+              if (query.length >= 2) search(query);
+            }}
+          >
+            <svg className="size-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
+      {/* Dropdown results */}
       {isOpen && results.length > 0 && (
-        <ul className="absolute z-50 mt-2 max-h-[420px] w-full overflow-y-auto rounded-xl border border-zinc-700/80 bg-zinc-900/95 backdrop-blur-sm shadow-2xl shadow-black/40">
+        <ul className="absolute z-50 mt-2 max-h-[420px] w-full overflow-y-auto rounded-2xl border border-zinc-700/80 bg-zinc-900/95 backdrop-blur-sm shadow-2xl shadow-black/40">
           {results.slice(0, 20).map((card, index) => {
             const imageUrl = getCardImageUrl(card, "small");
             return (
@@ -120,7 +138,7 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
                 key={card.id}
                 className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 transition-colors ${
                   index === highlightIndex
-                    ? "bg-emerald-500/10 border-l-2 border-l-emerald-500"
+                    ? "bg-[#0B25FF]/10 border-l-2 border-l-[#0B25FF]"
                     : "hover:bg-zinc-800/60 border-l-2 border-l-transparent"
                 }`}
                 onMouseEnter={() => setHighlightIndex(index)}
@@ -153,7 +171,7 @@ export default function CommanderSearch({ onSelect }: CommanderSearchProps) {
       )}
 
       {isOpen && !isLoading && results.length === 0 && query.length >= 2 && (
-        <div className="absolute z-50 mt-2 w-full rounded-xl border border-zinc-700/80 bg-zinc-900/95 px-4 py-4 text-center text-zinc-500 shadow-2xl">
+        <div className="absolute z-50 mt-2 w-full rounded-2xl border border-zinc-700/80 bg-zinc-900/95 px-4 py-4 text-center text-zinc-500 shadow-2xl">
           No commanders found for &ldquo;{query}&rdquo;
         </div>
       )}
